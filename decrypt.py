@@ -26,14 +26,14 @@ def parse_args(args):
 						   type=AP.FileType("r"),
 						   required=True,
 						   help="File to decrypt",
-						   metavar = "IN.vhdp",
+						   metavar = "IN.vp",
 						   dest = 'infile')
 	argParser.add_argument("-out",
 						   nargs=1,
 						   type=AP.FileType("w"),
 						   required=False,
 						   help="Destination of dectyption (stdout if not specified)",
-						   metavar = "OUT.vhd",
+						   metavar = "OUT.vp",
 						   dest = 'outfile')
 	return argParser.parse_args(args)
 
