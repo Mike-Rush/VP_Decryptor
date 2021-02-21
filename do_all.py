@@ -100,15 +100,15 @@ if __name__ == "__main__":
 						print("    %s" % kn)
 					continue
 					#sys.exit(1)
-				print(args.keyfile[0])
+				#print(args.keyfile[0])
 				session_key = rsa_decrypt(args.keyfile[0], esession_key)
 				session_key_pos=session_key.find(b'session_keyx')+13
 				session_key_true=session_key[session_key_pos:session_key_pos+32]
 				str_tmp=bytes.decode(session_key_true)
 				session_key_bytes=bytes.fromhex(str_tmp)
 				decrypted_data = aes128_cbc_decrypt(session_key_bytes, edata.encrypted_data)
-				fdout=open(infile_name.replace(args.indir[0],args.outdir[0]),"wb")
+				fdout=open(infile_name.replace(args.indir[0],args.outdir[0]).replace('.vp','.v'),"wb")
 				#fdout.write(bytes.decode(decrypted_data))
-				fd
+				fdout.write(decrypted_data)
 
 
