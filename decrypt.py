@@ -1,6 +1,4 @@
-#!/usr/bin/env python2
 # -*- coding: utf-8 -*-
-
 import sys, os
 import argparse as AP
 from Crypto.PublicKey import RSA
