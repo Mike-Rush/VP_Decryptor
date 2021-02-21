@@ -15,7 +15,7 @@ class P1735Parser:
         self.data_block = False
         self.p1735 = False
 
-        protect_kw = pp.Keyword('`protect').suppress()
+        protect_kw = pp.Keyword('`pragma protect').suppress()
         identifier = pp.Word(pp.alphas, pp.alphanums + "_")
         number = pp.Word(pp.nums).setParseAction(lambda t: int(t[0]))
         string = pp.dblQuotedString().setParseAction(pp.removeQuotes)
