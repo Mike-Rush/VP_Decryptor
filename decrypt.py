@@ -60,12 +60,6 @@ def aes128_cbc_decrypt(key, data):
 	cipher = AES.new(key, AES.MODE_CBC, iv)
 	return unpad(cipher.decrypt(data[16:]))
 
-def aes128_cbc_decrypt_SYNP(key, data):
-	unpad = lambda s : s[:-ord(s[len(s)-1:])]
-	iv = bytes.fromhex('00000000000000000000000000000000')
-	cipher = AES.new(key, AES.MODE_CBC, iv)
-	return unpad(cipher.decrypt(data[16:]))
-
 if __name__ == "__main__":
 	args = parse_args(sys.argv[1:])
 	if args.keyname == None:
@@ -84,17 +78,18 @@ if __name__ == "__main__":
 		sys.exit(1)
 
 	session_key = rsa_decrypt(args.keyfile[0], esession_key)
-	print(session_key)
+	#print(session_key)
 	session_key_pos=session_key.find(b'session_keyx')+13
-	print(session_key_pos)
+	#print(session_key_pos)
 	session_key_true=session_key[session_key_pos:session_key_pos+32]
-	print(session_key_true)
+	#print(session_key_true)
 	str_tmp=bytes.decode(session_key_true)
-	print(str_tmp)
+	#print(str_tmp)
 	session_key_bytes=bytes.fromhex(str_tmp)
-	decrypted_data = aes128_cbc_decrypt_SYNP(session_key_bytes, edata.encrypted_data)
+	decrypted_data = aes128_cbc_decrypt(session_key_bytes, edata.encrypted_data)
 	if args.outfile:
 		outfile = args.outfile[0]
 	else:
 		outfile = sys.stdout
-	outfile.write(decrypted_data)
+	#print(decrypted_data)
+	outfile.write(bytes.decode(decrypted_data))
